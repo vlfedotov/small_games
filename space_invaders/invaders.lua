@@ -23,6 +23,19 @@ invaders.current_level_invaders = {}
 local initial_speed_x = 50
 local initial_direction = 'right'
 
+invaders.images = {love.graphics.newImage('images/bad_1.png'),
+                   love.graphics.newImage('images/bad_2.png'),
+                   love.graphics.newImage('images/bad_3.png')
+            }
+
+-- from https://love2d.org/forums/viewtopic.php?t=79756
+function getImageScaleForNewDimensions( image, newWidth, newHeight )
+    local currentWidth, currentHeight = image:getDimensions()
+    return ( newWidth / currentWidth ), ( newHeight / currentHeight )
+end
+local scaleX, scaleY = getImageScaleForNewDimensions( invaders.images[1], invaders.invader_width,
+    invaders.invader_height )
+
 function invaders.destroy_invader( row, invader )
     invaders.current_level_invaders[row][invader] = nil
     local invaders_row_count = 0
@@ -51,11 +64,14 @@ function invaders.descend_by_row()
     end
 end
 
-function invaders.new_invader( position_x, position_y )
-    return { position_x = position_x,
+function invaders.new_invader(position_x, position_y ) -- меняем
+    local invader_image_no = math.random(1, #invaders.images)
+    invader_image = invaders.images[invader_image_no]
+    return ({position_x = position_x,
              position_y = position_y,
              width = invaders.invader_width,
-             height = invaders.invader_height }
+             height = invaders.invader_height,
+             image = invader_image})
 end
 
 function invaders.new_row( row_index )
@@ -63,7 +79,9 @@ function invaders.new_row( row_index )
     for col_index=1, invaders.columns - (row_index % 2) do
         local new_invader_position_x = invaders.top_left_position_x + invaders.invader_width * (row_index % 2) + (col_index - 1) * (invaders.invader_width + invaders.horizontal_distance)
         local new_invader_position_y = invaders.top_left_position_y + (row_index - 1) * (invaders.invader_height + invaders.vertical_distance)
-        local new_invader = invaders.new_invader( new_invader_position_x, new_invader_position_y )
+        local new_invader = invaders.new_invader( new_invader_position_x,
+                                                  new_invader_position_y
+                                            )
         table.insert( row, new_invader )
     end
     return row
@@ -77,13 +95,10 @@ function invaders.construct_level()
     end
 end
 
-function invaders.draw_invader( single_invader )
-    love.graphics.rectangle( 'line',
-                             single_invader.position_x,
-                             single_invader.position_y,
-                             single_invader.width,
-                             single_invader.height
-                        )
+function invaders.draw_invader( single_invader ) -- меняем
+    love.graphics.draw(single_invader.image,
+                       single_invader.position_x,
+                       single_invader.position_y, rotation, scaleX, scaleY )
 end
 
 function invaders.draw()

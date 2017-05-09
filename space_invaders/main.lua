@@ -5,6 +5,7 @@ local collisions = require 'collisions'
 local bullets    = require 'bullets'
 
 function love.load()
+    math.randomseed( os.time() )
     invaders.construct_level()
     walls.construct_level()
 end
