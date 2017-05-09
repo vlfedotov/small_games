@@ -1,5 +1,4 @@
 require 'utils'
-local vector = require 'hump/vector'
 
 local invaders = {}
 
