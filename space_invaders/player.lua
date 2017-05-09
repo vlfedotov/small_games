@@ -1,3 +1,4 @@
+require 'utils'
 local vector = require 'hump/vector'
 
 local player = {}
@@ -10,11 +11,9 @@ player.height = 50
 
 player.image = love.graphics.newImage('images/Hero.png')
 
--- from https://love2d.org/forums/viewtopic.php?t=79756
-function getImageScaleForNewDimensions( image, newWidth, newHeight )
-    local currentWidth, currentHeight = image:getDimensions()
-    return ( newWidth / currentWidth ), ( newHeight / currentHeight )
-end
+player.lives = 5
+
+
 local scaleX, scaleY = getImageScaleForNewDimensions( player.image, player.width, player.height )
 
 function player.update( dt )
