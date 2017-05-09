@@ -24,8 +24,8 @@ function bullets.new_bullet(position_x, position_y)
 end
 
 function bullets.fire( player )
-    local position_x = player.position.x + player.width / 2
-    local position_y = player.position.y
+    local position_x = player.position_x + player.width / 2
+    local position_y = player.position_y
     local new_bullet = bullets.new_bullet( position_x, position_y )
     table.insert(bullets.current_level_bullets, new_bullet)
 end

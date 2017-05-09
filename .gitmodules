@@ -1,3 +1,0 @@
-[submodule "space_invaders/hump"]
-	path = space_invaders/hump
-	url = git@github.com:vrld/hump.git
