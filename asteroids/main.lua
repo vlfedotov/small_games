@@ -193,9 +193,9 @@ local function draw_the_end()
   local font = love.graphics.getFont()
   local r,g,b,a = love.graphics.getColor()
   love.graphics.setColor(255, 255, 255, game_state.fading_alpha)
-  love.graphics.setFont(the_end_font)
+  love.graphics.setFont(the_end_sign.font)
 
-  love.graphics.printf('THE END', 400, 300, 200, 'center')
+  love.graphics.printf(the_end_sign.text, 400, 300, 200, 'center')
 
   love.graphics.setColor(r, g, b, a)
   love.graphics.setFont(font)
