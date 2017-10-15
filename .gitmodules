@@ -1,0 +1,3 @@
+[submodule "asteroids/hump"]
+	path = asteroids/hump
+	url = git@github.com:vrld/hump.git
